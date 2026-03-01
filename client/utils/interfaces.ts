@@ -8,3 +8,9 @@ export interface SvgImageProps {
     style?: StyleProp<ViewStyle>;
     source: React.FC<{ height?: number; width?: number, color?: string }>;
 };
+
+export interface ToastComponentProps {
+    isActive: boolean;
+    setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+    message: string;
+};

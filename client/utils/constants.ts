@@ -18,3 +18,5 @@ export const onboardingData = [
         description: ' QuickMart employs industry-leading encryption and trusted payment gateways to safeguard your financial information.',
     },
 ];
+
+export const numericIconsData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '<-', '0', 'C'];

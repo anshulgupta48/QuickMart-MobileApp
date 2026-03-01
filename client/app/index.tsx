@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
 import SvgImage from '@/components/SVGImage';
@@ -8,6 +9,7 @@ import { onboardingData } from '@/utils/constants';
 
 const Onboarding = () => {
   const [activeOnboardingIndex, setActiveOnboardingIndex] = useState<number>(0);
+  const router = useRouter();
 
   const handlePrevious = () => {
     if (activeOnboardingIndex > 0) {
@@ -22,14 +24,14 @@ const Onboarding = () => {
   return (
     <SafeAreaView className='h-full w-full bg-pure-canvas'>
       <ScrollView className='h-full w-full'>
-        <View className='h-full w-full px-[16px] pt-[20px] flex flex-col gap-[36px]'>
+        <View className='h-full w-full px-[16px] pt-[20px] pb-[10px] flex flex-col gap-[36px]'>
           <View className='h-[408px] w-full px-[18px] py-[20px] bg-mint-whisper rounded-[32px] flex flex-col items-center gap-[46px]'>
             <View className='w-full flex flex-row justify-between items-center gap-[20px]'>
               <TouchableOpacity activeOpacity={activeOnboardingIndex === 0 ? 1 : 0.8} onPress={handlePrevious}>
                 <SvgImage source={activeOnboardingIndex === 0 ? Images.Logo : Icons.ArrowLeftIcon} height={32} width={activeOnboardingIndex === 0 ? 104 : 32} />
               </TouchableOpacity>
 
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity activeOpacity={0.8} onPress={() => router.push('/(auth)/Login')}>
                 <Text className='text-aqua-mint text-[14px] font-inter-regular'>Skip for now</Text>
               </TouchableOpacity>
             </View>
@@ -39,7 +41,7 @@ const Onboarding = () => {
 
           <View className='w-full flex flex-col items-center gap-[24px]'>
             <View className='w-[90%] flex flex-col items-center gap-[16px]'>
-              <Text className='text-midnight-carbon text-[24px] font-inter-semibold text-center'>{onboardingData[activeOnboardingIndex].title}</Text>
+              <Text className='text-midnight-carbon text-[24px] font-inter-bold text-center'>{onboardingData[activeOnboardingIndex].title}</Text>
               <Text className='text-midnight-carbon text-[14px] font-inter-regular text-center'>{onboardingData[activeOnboardingIndex].description}</Text>
             </View>
 
@@ -49,11 +51,11 @@ const Onboarding = () => {
               </TouchableOpacity>}
 
               {activeOnboardingIndex === 2 && <>
-                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] border-[1.5px] border-solid border-lavender-haze rounded-[12px] flex flex-row justify-center items-center'>
+                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] border-[1.5px] border-solid border-lavender-haze rounded-[12px] flex flex-row justify-center items-center' onPress={() => router.push('/(auth)/Login')}>
                   <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Login</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] bg-midnight-carbon rounded-[12px] flex flex-row justify-center items-center gap-[8px]'>
+                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] bg-midnight-carbon rounded-[12px] flex flex-row justify-center items-center gap-[8px]' onPress={() => router.push('/(auth)/Login')}>
                   <Text className='text-pure-canvas text-[14px] font-inter-regular' numberOfLines={1}>Get Started</Text>
                   <SvgImage source={Icons.ArrowRightIcon} height={24} width={24} color='#FFFFFF' />
                 </TouchableOpacity>
