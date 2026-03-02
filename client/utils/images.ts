@@ -6,4 +6,7 @@ import OnboardingBanner2 from '@/assets/images/onboarding-banner-2.svg';
 import OnboardingBanner3 from '@/assets/images/onboarding-banner-3.svg';
 import ForgotPasswordBanner from '@/assets/images/forgot-password-banner.svg';
 
-export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner };
+import ProfileBanner from '@/assets/images/profile-banner.svg';
+import HomeBanner from '@/assets/images/home-banner.svg';
+
+export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner, ProfileBanner, HomeBanner };

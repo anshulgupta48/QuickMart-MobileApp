@@ -7,4 +7,11 @@ import EyeSlashIcon from '@/assets/icons/eye-slash-icon.svg';
 import GoogleIcon from '@/assets/icons/google-icon.svg';
 import SuccessIcon from '@/assets/icons/success-icon.svg';
 
-export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon };
+import HomeIcon from '@/assets/icons/home-icon.svg';
+import CategoriesIcon from '@/assets/icons/categories-icon.svg';
+import CartIcon from '@/assets/icons/cart-icon.svg';
+import WishlistIcon from '@/assets/icons/wishlist-icon.svg';
+import ProfileIcon from '@/assets/icons/profile-icon.svg';
+import SearchIcon from '@/assets/icons/search-icon.svg';
+
+export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon };

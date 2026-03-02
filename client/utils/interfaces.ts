@@ -1,4 +1,5 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import { FC } from 'react';
+import { ImageProps, StyleProp, ViewStyle } from 'react-native';
 
 // <======== Exporting Interfaces ========>
 export interface SvgImageProps {
@@ -13,4 +14,10 @@ export interface ToastComponentProps {
     isActive: boolean;
     setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
     message: string;
+};
+
+export interface TabsBarIconProps {
+    focused: boolean;
+    title: string;
+    icon: FC<ImageProps>;
 };

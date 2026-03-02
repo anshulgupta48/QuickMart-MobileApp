@@ -20,3 +20,16 @@ export const onboardingData = [
 ];
 
 export const numericIconsData = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '<-', '0', 'C'];
+
+export const categoriesData = [
+    { title: 'Mobiles', icon: '📱' },
+    { title: 'Fashion', icon: '👜' },
+    { title: 'Furniture', icon: '🛋️' },
+    { title: 'Industrial', icon: '🚗' },
+    { title: 'Home Decor', icon: '🎁' },
+    { title: 'Electronics', icon: '📺' },
+    { title: 'Health', icon: '🩺' },
+    { title: 'Construction & Real-State', icon: '🏠' },
+    { title: 'Fabrication Service', icon: '📏' },
+    { title: 'Electrical Equipments', icon: '🔌' },
+];

@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity, TextInputChangeEvent } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SvgImage from '@/components/SVGImage';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
 
 const Login = () => {
   const [loginFormData, setLoginFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
     setLoginFormData({ ...loginFormData, [fieldName]: e.nativeEvent.text });
+  };
+
+  const handleLogin = () => {
+    router.push('/(tabs)/Home');
   };
 
   return (
@@ -57,7 +62,7 @@ const Login = () => {
             </View>
 
             <View className='flex flex-col gap-[16px]'>
-              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center'>
+              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={handleLogin}>
                 <Text className='text-pure-canvas text-[14px] font-inter-medium'>Login</Text>
               </TouchableOpacity>
 
