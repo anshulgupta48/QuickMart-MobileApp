@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <SafeAreaView className='h-full w-full bg-pure-canvas'>
-      <ScrollView className='h-full w-full'>
+      <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
         <View className='h-screen w-full px-[16px] pt-[20px] pb-[10px] flex flex-col justify-between'>
           <View className='w-full flex flex-col gap-[24px]'>
             <SvgImage source={Images.Logo} height={32} width={104} />

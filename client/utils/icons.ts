@@ -14,4 +14,7 @@ import WishlistIcon from '@/assets/icons/wishlist-icon.svg';
 import ProfileIcon from '@/assets/icons/profile-icon.svg';
 import SearchIcon from '@/assets/icons/search-icon.svg';
 
-export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon };
+import HeartIcon from '@/assets/icons/heart-icon.svg';
+import HeartFilledIcon from '@/assets/icons/heart-filled-icon.svg';
+
+export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, HeartIcon, HeartFilledIcon };

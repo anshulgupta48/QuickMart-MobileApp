@@ -51,23 +51,23 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView className='h-full w-full bg-pure-canvas'>
-      <ScrollView className='h-full w-full'>
-        <ToastComponent isActive={showResendCodeNotification} setIsActive={setShowResendCodeNotification} message='6-digit Verification code has been send to your email address.' />
+      <ToastComponent isActive={showResendCodeNotification} setIsActive={setShowResendCodeNotification} message='6-digit Verification code has been send to your email address.' />
 
-        <View className='h-screen w-full pt-[20px] pb-[10px] flex flex-col justify-between gap-[20px]'>
-          <View className='w-full flex flex-col gap-[12px]'>
-            {activeForgotPasswordIndex !== 3 && <View className='w-full px-[16px] pb-[12px] border-b-[1.5px] border-solid border-lavender-haze flex flex-row justify-between items-center gap-[10px]'>
-              <View className='flex flex-row items-center gap-[12px]'>
-                <TouchableOpacity activeOpacity={0.8} onPress={handlePrevious}>
-                  <SvgImage source={Icons.ArrowLeftIcon} height={32} width={32} />
-                </TouchableOpacity>
+      <View className='h-screen w-full pt-[20px] pb-[10px] flex flex-col justify-between gap-[20px]'>
+        <View className='w-full flex flex-col gap-[12px]'>
+          {activeForgotPasswordIndex !== 3 && <View className='w-full px-[16px] pb-[12px] border-b-[1.5px] border-solid border-lavender-haze flex flex-row justify-between items-center gap-[10px]'>
+            <View className='flex flex-row items-center gap-[12px]'>
+              <TouchableOpacity activeOpacity={0.8} onPress={handlePrevious}>
+                <SvgImage source={Icons.ArrowLeftIcon} height={32} width={32} />
+              </TouchableOpacity>
 
-                <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Forgot Password</Text>
-              </View>
+              <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Forgot Password</Text>
+            </View>
 
-              <Text className='text-midnight-carbon text-[14px] font-inter-medium'>0{activeForgotPasswordIndex + 1}/<Text className='text-silver-mist'>03</Text></Text>
-            </View>}
+            <Text className='text-midnight-carbon text-[14px] font-inter-medium'>0{activeForgotPasswordIndex + 1}/<Text className='text-silver-mist'>03</Text></Text>
+          </View>}
 
+          <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
             <View className='w-full px-[16px] flex flex-col gap-[24px]'>
               {activeForgotPasswordIndex === 0 && <View className='flex flex-col gap-[16px]'>
                 <View className='flex flex-col gap-[4px]'>
@@ -147,17 +147,17 @@ const ForgotPassword = () => {
                 <Text className='text-pure-canvas text-[14px] font-inter-medium'>{activeForgotPasswordIndex === 0 ? 'Send' : (activeForgotPasswordIndex === 1 ? 'Proceed' : (activeForgotPasswordIndex === 2 ? 'Save' : 'Login'))}</Text>
               </TouchableOpacity>
             </View>
-          </View>
-
-          {activeForgotPasswordIndex === 1 && <View className='w-full px-[16px] flex flex-row justify-between items-center flex-wrap gap-[8px]'>
-            {numericIconsData.map((item, index) => (
-              <TouchableOpacity activeOpacity={0.8} className='h-[70px] w-[31%] bg-mint-whisper rounded-[12px] flex justify-center items-center' onPress={() => handleEmailVerificationCode(item)} key={index}>
-                <Text className='text-midnight-carbon text-[18px] font-inter-bold'>{item}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>}
+          </ScrollView>
         </View>
-      </ScrollView>
+
+        {activeForgotPasswordIndex === 1 && <View className='w-full px-[16px] flex flex-row justify-between items-center flex-wrap gap-[8px]'>
+          {numericIconsData.map((item, index) => (
+            <TouchableOpacity activeOpacity={0.8} className='h-[70px] w-[31%] bg-mint-whisper rounded-[12px] flex justify-center items-center' onPress={() => handleEmailVerificationCode(item)} key={index}>
+              <Text className='text-midnight-carbon text-[18px] font-inter-bold'>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>}
+      </View>
     </SafeAreaView>
   );
 };

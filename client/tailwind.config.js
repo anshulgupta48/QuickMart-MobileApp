@@ -17,6 +17,12 @@ module.exports = {
         'slate-fog': '#6F7384',
         'crimson-alert': '#EE4D4D',
         'ocean-blue': '#1F8BDA',
+
+        // Product-Colors
+        'emerald-glow': '#08E488',
+        'royal-indigo': '#4F1FDA',
+        'sunset-amber': '#F0821D',
+        'mahogany-brown': '#5A1A05',
       },
       fontFamily: {
         'inter-regular': ['Inter-Regular'],

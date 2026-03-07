@@ -23,7 +23,7 @@ const Onboarding = () => {
 
   return (
     <SafeAreaView className='h-full w-full bg-pure-canvas'>
-      <ScrollView className='h-full w-full'>
+      <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
         <View className='h-full w-full px-[16px] pt-[20px] pb-[10px] flex flex-col gap-[36px]'>
           <View className='h-[408px] w-full px-[18px] py-[20px] bg-mint-whisper rounded-[32px] flex flex-col items-center gap-[46px]'>
             <View className='w-full flex flex-row justify-between items-center gap-[20px]'>
@@ -55,7 +55,7 @@ const Onboarding = () => {
                   <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Login</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] bg-midnight-carbon rounded-[12px] flex flex-row justify-center items-center gap-[8px]' onPress={() => router.push('/(auth)/Login')}>
+                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] bg-midnight-carbon rounded-[12px] flex flex-row justify-center items-center gap-[8px]' onPress={() => router.push('/(auth)/SignUp')}>
                   <Text className='text-pure-canvas text-[14px] font-inter-regular' numberOfLines={1}>Get Started</Text>
                   <SvgImage source={Icons.ArrowRightIcon} height={24} width={24} color='#FFFFFF' />
                 </TouchableOpacity>

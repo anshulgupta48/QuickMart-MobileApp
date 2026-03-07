@@ -21,3 +21,11 @@ export interface TabsBarIconProps {
     title: string;
     icon: FC<ImageProps>;
 };
+
+export interface ProductCardProps {
+    banner: FC<ImageProps>;
+    title: string;
+    discountedPrice: string;
+    originalPrice: string;
+    colors: string[];
+};
