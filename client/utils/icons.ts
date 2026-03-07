@@ -16,5 +16,15 @@ import SearchIcon from '@/assets/icons/search-icon.svg';
 
 import HeartIcon from '@/assets/icons/heart-icon.svg';
 import HeartFilledIcon from '@/assets/icons/heart-filled-icon.svg';
+import LogoutIcon from '@/assets/icons/logout-icon.svg';
+import ShippingIcon from '@/assets/icons/shipping-icon.svg';
+import PaymentIcon from '@/assets/icons/payment-icon.svg';
+import OrderHistoryIcon from '@/assets/icons/order-history-icon.svg';
+import PrivacyPolicyIcon from '@/assets/icons/privacy-policy-icon.svg';
+import TermsConditionsIcon from '@/assets/icons/terms-conditions-icon.svg';
+import FAQsIcon from '@/assets/icons/faqs-icon.svg';
+import ChangePasswordIcon from '@/assets/icons/change-password-icon.svg';
+import ThemeIcon from '@/assets/icons/theme-icon.svg';
+import ChevronRightIcon from '@/assets/icons/chevron-right-icon.svg';
 
-export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, HeartIcon, HeartFilledIcon };
+export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, HeartIcon, HeartFilledIcon, LogoutIcon, ShippingIcon, PaymentIcon, OrderHistoryIcon, PrivacyPolicyIcon, TermsConditionsIcon, FAQsIcon, ChangePasswordIcon, ThemeIcon, ChevronRightIcon };
