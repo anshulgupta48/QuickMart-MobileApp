@@ -13,5 +13,6 @@ import ProductBanner1 from '@/assets/images/product-banner-1.svg';
 import ProductBanner2 from '@/assets/images/product-banner-2.svg';
 import ProductBanner3 from '@/assets/images/product-banner-3.svg';
 import ProductBanner4 from '@/assets/images/product-banner-4.svg';
+import WishlistBanner from '@/assets/images/wishlist-banner.svg';
 
-export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner, ProfileBanner, HomeBanner, ProductBanner1, ProductBanner2, ProductBanner3, ProductBanner4 };
+export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner, ProfileBanner, HomeBanner, ProductBanner1, ProductBanner2, ProductBanner3, ProductBanner4, WishlistBanner };

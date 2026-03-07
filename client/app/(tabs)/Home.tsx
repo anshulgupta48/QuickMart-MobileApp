@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
 import SvgImage from '@/components/SVGImage';
-import ProductCard from '@/components/ProductCard';
+import LatestProductCard from '@/components/LatestProductCard';
 import { categoriesData, productsData } from '@/utils/constants';
 
 const Home = () => {
@@ -50,7 +50,7 @@ const Home = () => {
 
             <View className='flex flex-row justify-between items-center gap-x-[8px] gap-y-[12px] flex-wrap'>
               {latestProductsData?.map((item, index) => (
-                <ProductCard banner={item?.banner} title={item?.title} discountedPrice={item?.discountedPrice} originalPrice={item?.originalPrice} colors={item?.colors} key={index} />
+                <LatestProductCard banner={item?.banner} title={item?.title} discountedPrice={item?.discountedPrice} originalPrice={item?.originalPrice} colors={item?.colors} isWishlisted={false} key={index} />
               ))}
             </View>
           </View>

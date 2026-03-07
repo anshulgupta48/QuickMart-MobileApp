@@ -28,4 +28,5 @@ export interface ProductCardProps {
     discountedPrice: string;
     originalPrice: string;
     colors: string[];
+    isWishlisted: boolean;
 };
