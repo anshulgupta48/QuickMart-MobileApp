@@ -45,7 +45,7 @@ const Home = () => {
           <View className='flex flex-col gap-[12px]'>
             <View className='flex flex-row justify-between items-center gap-[20px]'>
               <Text className='text-midnight-carbon text-[18px] font-inter-bold'>Latest Products</Text>
-              <Link href='/' className='text-aqua-mint text-[10px] font-inter-semibold uppercase'>See All</Link>
+              <Link href='/(product)/LatestProducts' className='text-aqua-mint text-[10px] font-inter-semibold uppercase'>See All</Link>
             </View>
 
             <View className='flex flex-row justify-between items-center gap-x-[8px] gap-y-[12px] flex-wrap'>
