@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { Icons } from '@/utils/icons';
 import SvgImage from './SVGImage';
 import { ProductCardProps } from '@/utils/interfaces';
@@ -7,9 +8,10 @@ import { ProductCardProps } from '@/utils/interfaces';
 const LatestProductCard = ({ banner, title, discountedPrice, originalPrice, colors, isWishlisted }: ProductCardProps) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(isWishlisted);
   const [showAllColors, setShowAllColors] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
-    <View className='h-[227px] w-[160px] flex flex-col gap-[8px] relative'>
+    <TouchableOpacity activeOpacity={0.8} className='h-[227px] w-[160px] flex flex-col gap-[8px] relative' onPress={() => router.push('/product/[productId]')}>
       <View className='rounded-[14px] overflow-hidden'>
         <SvgImage source={banner} height={138} width={160} />
       </View>
@@ -35,7 +37,7 @@ const LatestProductCard = ({ banner, title, discountedPrice, originalPrice, colo
         <Text className='text-midnight-carbon text-[12px] font-inter-medium'>${discountedPrice}</Text>
         <Text className='text-silver-mist text-[10px] font-inter-medium' style={{ textDecorationLine: 'line-through' }}>${originalPrice}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

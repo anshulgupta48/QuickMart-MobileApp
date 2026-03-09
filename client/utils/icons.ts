@@ -30,4 +30,8 @@ import ChangePasswordIcon from '@/assets/icons/change-password-icon.svg';
 import ThemeIcon from '@/assets/icons/theme-icon.svg';
 import ChevronRightIcon from '@/assets/icons/chevron-right-icon.svg';
 
-export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, FilterIcon, CheckBoxIcon, CheckBoxFilledIcon, HeartIcon, HeartFilledIcon, LogoutIcon, ShippingIcon, PaymentIcon, OrderHistoryIcon, PrivacyPolicyIcon, TermsConditionsIcon, FAQsIcon, ChangePasswordIcon, ThemeIcon, ChevronRightIcon };
+import MinusIcon from '@/assets/icons/minus-icon.svg';
+import PlusIcon from '@/assets/icons/plus-icon.svg';
+import StarIcon from '@/assets/icons/star-icon.svg';
+
+export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, FilterIcon, CheckBoxIcon, CheckBoxFilledIcon, HeartIcon, HeartFilledIcon, LogoutIcon, ShippingIcon, PaymentIcon, OrderHistoryIcon, PrivacyPolicyIcon, TermsConditionsIcon, FAQsIcon, ChangePasswordIcon, ThemeIcon, ChevronRightIcon, MinusIcon, PlusIcon, StarIcon };
