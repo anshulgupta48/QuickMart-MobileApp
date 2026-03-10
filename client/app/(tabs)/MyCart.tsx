@@ -26,7 +26,7 @@ const MyCart = () => {
 
           <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
             <View className='px-[16px] pb-[130px] flex flex-col justify-between gap-[60px]'>
-              <View className='flex flex-col gap-[16px]'>
+              <View className='min-h-[320px] flex flex-col gap-[16px]'>
                 <CartProductCard />
                 <CartProductCard />
                 <CartProductCard />
@@ -47,7 +47,7 @@ const MyCart = () => {
                     <Text className='text-slate-fog text-[12px] font-inter-regular'>$0.00</Text>
                   </View>
 
-                  <View className='mt-[8px] flex flex-row justify-between items-center gap-[20px]'>
+                  <View className='flex flex-row justify-between items-center gap-[20px]'>
                     <Text className='text-midnight-carbon text-[16px] font-inter-medium'>Total</Text>
                     <Text className='text-midnight-carbon text-[16px] font-inter-medium'>$27.25</Text>
                   </View>

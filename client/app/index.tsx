@@ -25,7 +25,7 @@ const Onboarding = () => {
     <SafeAreaView className='h-full w-full bg-pure-canvas'>
       <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
         <View className='h-full w-full px-[16px] pt-[20px] pb-[10px] flex flex-col gap-[36px]'>
-          <View className='h-[408px] w-full px-[18px] py-[20px] bg-mint-whisper rounded-[32px] flex flex-col items-center gap-[46px]'>
+          <View className='h-[394px] w-full px-[18px] py-[20px] bg-mint-whisper rounded-[32px] flex flex-col items-center gap-[46px]'>
             <View className='w-full flex flex-row justify-between items-center gap-[20px]'>
               <TouchableOpacity activeOpacity={activeOnboardingIndex === 0 ? 1 : 0.8} onPress={handlePrevious}>
                 <SvgImage source={activeOnboardingIndex === 0 ? Images.Logo : Icons.ArrowLeftIcon} height={32} width={activeOnboardingIndex === 0 ? 104 : 32} />
