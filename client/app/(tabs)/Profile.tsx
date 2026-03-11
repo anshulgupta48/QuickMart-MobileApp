@@ -1,12 +1,13 @@
-import SvgImage from '@/components/SVGImage';
-import { Icons } from '@/utils/icons';
-import { Images } from '@/utils/images';
-import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link, useRouter } from 'expo-router';
+import { Icons } from '@/utils/icons';
+import { Images } from '@/utils/images';
+import SvgImage from '@/components/SVGImage';
 
 const Profile = () => {
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
   const router = useRouter();
 
   return (
@@ -41,7 +42,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Shipping Address</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/ShippingAddress'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
 
                 <View className='h-[48px] w-full px-[16px] border-b-[0.5px] border-solid border-slate-fog flex flex-row justify-between items-center gap-[10px]'>
@@ -50,7 +53,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Payment Method</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/PaymentMethod'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
 
                 <View className='h-[48px] w-full px-[16px] border-b-[0.5px] border-solid border-slate-fog flex flex-row justify-between items-center gap-[10px]'>
@@ -59,7 +64,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Order History</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/OrderHistory'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
               </View>
             </View>
@@ -74,7 +81,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Privacy Policy</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/PrivacyPolicy'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
 
                 <View className='h-[48px] w-full px-[16px] border-b-[0.5px] border-solid border-slate-fog flex flex-row justify-between items-center gap-[10px]'>
@@ -83,7 +92,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Terms & Conditions</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/TermsAndConditions'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
 
                 <View className='h-[48px] w-full px-[16px] border-b-[0.5px] border-solid border-slate-fog flex flex-row justify-between items-center gap-[10px]'>
@@ -92,7 +103,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>FAQs</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/FAQs'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
               </View>
             </View>
@@ -107,7 +120,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Change Password</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <Link href='/(routes)/ChangePassword'>
+                    <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  </Link>
                 </View>
 
                 <View className='h-[48px] w-full px-[16px] border-b-[0.5px] border-solid border-slate-fog flex flex-row justify-between items-center gap-[10px]'>
@@ -116,7 +131,9 @@ const Profile = () => {
                     <Text className='text-slate-fog text-[14px] font-inter-medium'>Dark Theme</Text>
                   </View>
 
-                  <SvgImage source={Icons.ChevronRightIcon} height={32} width={32} />
+                  <TouchableOpacity activeOpacity={0.8} className={`h-[18px] w-[30px] rounded-[24px] flex flex-row items-center ${isDarkTheme ? 'bg-ocean-blue' : 'bg-slate-fog'}`} onPress={() => setIsDarkTheme(!isDarkTheme)}>
+                    <View className={`h-[15px] w-[15px] bg-pure-canvas rounded-full transition-all duration-300 z-10 ${isDarkTheme ? 'translate-x-[13px]' : 'translate-x-[2px]'}`}></View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

@@ -8,7 +8,7 @@ import SvgImage from '@/components/SVGImage';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
 import { checkoutDropdownOptionsType } from '@/utils/interfaces';
-import CartProductCard from '@/components/CartProductCard';
+import OrderHistoryProductCard from '@/components/OrderHistoryProductCard';
 
 const Checkout = () => {
   const [checkoutFormData, setCheckoutFormData] = useState({ fullName: '', phoneCode: null, phoneNumber: '', state: '', city: '', streetAddress: '', postalCode: '', cardHolderName: '', cardNumber: '', expiration: '', cvv: '' });
@@ -285,8 +285,8 @@ const Checkout = () => {
 
               {activeCheckoutIndex === 2 && <View className='min-h-[470px] w-full flex flex-col gap-[16px]'>
                 <View className='flex flex-col gap-[16px]'>
-                  <CartProductCard />
-                  <CartProductCard />
+                  <OrderHistoryProductCard />
+                  <OrderHistoryProductCard />
                 </View>
 
                 <View className='flex flex-col gap-[10px]'>

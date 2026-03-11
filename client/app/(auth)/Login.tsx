@@ -73,7 +73,7 @@ const Login = () => {
             </View>
           </View>
 
-          <Text className='text-midnight-carbon text-[12px] font-inter-medium text-center'>By login , you agree to our <Text className='text-ocean-blue'>Privacy Policy</Text> and <Text className='text-ocean-blue'>Terms & Conditions</Text>.</Text>
+          <Text className='text-midnight-carbon text-[12px] font-inter-medium text-center'>By login , you agree to our <Link href='/(routes)/PrivacyPolicy' className='text-ocean-blue'>Privacy Policy</Link> and <Link href='/(routes)/TermsAndConditions' className='text-ocean-blue'>Terms & Conditions</Link>.</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

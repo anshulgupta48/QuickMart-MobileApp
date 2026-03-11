@@ -17,5 +17,6 @@ import WishlistBanner from '@/assets/images/wishlist-banner.svg';
 
 import CartBanner from '@/assets/images/cart-banner.svg';
 import CheckoutBanner from '@/assets/images/checkout-banner.svg';
+import OrderHistoryBanner from '@/assets/images/order-history-banner.svg';
 
-export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner, ProfileBanner, HomeBanner, ProductBanner1, ProductBanner2, ProductBanner3, ProductBanner4, WishlistBanner, CartBanner, CheckoutBanner };
+export const Images = { Logo, SplashScreenLogo, OnboardingBanner1, OnboardingBanner2, OnboardingBanner3, ForgotPasswordBanner, ProfileBanner, HomeBanner, ProductBanner1, ProductBanner2, ProductBanner3, ProductBanner4, WishlistBanner, CartBanner, CheckoutBanner, OrderHistoryBanner };
