@@ -32,3 +32,9 @@ export interface ProductCardProps {
     colors: string[];
     isWishlisted: boolean;
 };
+
+export interface checkoutDropdownOptionsType {
+    countriesData: { label: string, value: string }[],
+    statesData: { label: string, value: string }[],
+    citiesData: { label: string, value: string }[],
+};

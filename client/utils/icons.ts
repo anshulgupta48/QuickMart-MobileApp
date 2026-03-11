@@ -27,6 +27,7 @@ import PrivacyPolicyIcon from '@/assets/icons/privacy-policy-icon.svg';
 import TermsConditionsIcon from '@/assets/icons/terms-conditions-icon.svg';
 import FAQsIcon from '@/assets/icons/faqs-icon.svg';
 import ChangePasswordIcon from '@/assets/icons/change-password-icon.svg';
+import ReviewIcon from '@/assets/icons/review-icon.svg';
 import ThemeIcon from '@/assets/icons/theme-icon.svg';
 import ChevronRightIcon from '@/assets/icons/chevron-right-icon.svg';
 
@@ -35,4 +36,7 @@ import PlusIcon from '@/assets/icons/plus-icon.svg';
 import StarIcon from '@/assets/icons/star-icon.svg';
 import DeleteIcon from '@/assets/icons/delete-icon.svg';
 
-export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, FilterIcon, CheckBoxIcon, CheckBoxFilledIcon, HeartIcon, HeartFilledIcon, LogoutIcon, ShippingIcon, PaymentIcon, OrderHistoryIcon, PrivacyPolicyIcon, TermsConditionsIcon, FAQsIcon, ChangePasswordIcon, ThemeIcon, ChevronRightIcon, MinusIcon, PlusIcon, StarIcon, DeleteIcon };
+import PaypalIcon from '@/assets/icons/paypal-icon.svg';
+import GPayIcon from '@/assets/icons/gpay-icon.svg';
+
+export const Icons = { ArrowLeftIcon, ArrowRightIcon, EyeIcon, EyeSlashIcon, GoogleIcon, SuccessIcon, HomeIcon, CategoriesIcon, CartIcon, WishlistIcon, ProfileIcon, SearchIcon, FilterIcon, CheckBoxIcon, CheckBoxFilledIcon, HeartIcon, HeartFilledIcon, LogoutIcon, ShippingIcon, PaymentIcon, OrderHistoryIcon, PrivacyPolicyIcon, TermsConditionsIcon, FAQsIcon, ChangePasswordIcon, ReviewIcon, ThemeIcon, ChevronRightIcon, MinusIcon, PlusIcon, StarIcon, DeleteIcon, PaypalIcon, GPayIcon };

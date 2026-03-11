@@ -26,9 +26,7 @@ const MyCart = () => {
 
           <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full'>
             <View className='px-[16px] pb-[130px] flex flex-col justify-between gap-[60px]'>
-              <View className='min-h-[320px] flex flex-col gap-[16px]'>
-                <CartProductCard />
-                <CartProductCard />
+              <View className='min-h-[330px] flex flex-col gap-[16px]'>
                 <CartProductCard />
                 <CartProductCard />
               </View>
@@ -53,7 +51,7 @@ const MyCart = () => {
                   </View>
                 </View>
 
-                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full mt-[8px] bg-midnight-carbon rounded-[12px] flex justify-center items-center'>
+                <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full mt-[8px] bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={() => router.push('/Checkout')}>
                   <Text className='text-pure-canvas text-[14px] font-inter-medium'>Checkout (2)</Text>
                 </TouchableOpacity>
               </View>
