@@ -7,9 +7,11 @@ import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
 import { numericIconsData } from '@/utils/constants';
 import ToastComponent from '@/components/ToastComponent';
+import { SignUpFormDataType } from '@/utils/interfaces';
 
 const SignUp = () => {
-  const [signUpFormData, setSignUpFormData] = useState({ fullName: '', email: '', password: '' });
+  const [signUpFormData, setSignUpFormData] = useState<SignUpFormDataType>({ fullName: '', email: '', password: '' });
+  const [signUpFormErrors, setSignUpFormErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [activeSignUpIndex, setActiveSignUpIndex] = useState<number>(0);
   const [emailVerificationCode, setEmailVerificationCode] = useState<string[]>([]);
@@ -17,10 +19,31 @@ const SignUp = () => {
   const router = useRouter();
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setSignUpFormErrors([]);
     setSignUpFormData({ ...signUpFormData, [fieldName]: e.nativeEvent.text });
   };
 
+  const handleCreateAccount = () => {
+    let updatedSignUpFormErrors = [];
+    if (signUpFormData.fullName === '') {
+      updatedSignUpFormErrors.push('fullName');
+    }
+    if (signUpFormData.email === '') {
+      updatedSignUpFormErrors.push('email');
+    }
+    if (signUpFormData.password === '') {
+      updatedSignUpFormErrors.push('password');
+    }
+
+    setSignUpFormErrors(updatedSignUpFormErrors);
+    if (updatedSignUpFormErrors.length === 0) {
+      setActiveSignUpIndex(1);
+    }
+  };
+
   const handleEmailVerificationCode = (selectedCode: string) => {
+    setSignUpFormErrors([]);
+
     if (selectedCode === 'C') {
       setEmailVerificationCode([]);
     }
@@ -29,6 +52,21 @@ const SignUp = () => {
     }
     else if (emailVerificationCode.length < 6) {
       setEmailVerificationCode([...emailVerificationCode, selectedCode]);
+    }
+  };
+
+  const handleEmailVerificationProceed = () => {
+    let updatedSignUpFormErrors = [];
+
+    for (let i = 0; i < 6; i++) {
+      if (!emailVerificationCode[i]) {
+        updatedSignUpFormErrors.push(`emailVerificationCode${i}`);
+      }
+    }
+
+    setSignUpFormErrors(updatedSignUpFormErrors);
+    if (updatedSignUpFormErrors.length === 0) {
+      router.push('/(auth)/Login');
     }
   };
 
@@ -53,19 +91,19 @@ const SignUp = () => {
             <View className='flex flex-col gap-[8px]'>
               <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Full Name <Text className='text-crimson-alert'>*</Text></Text>
 
-              <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={signUpFormData.fullName} onChange={(e) => handleChange('fullName', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+              <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={signUpFormData.fullName} onChange={(e) => handleChange('fullName', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${signUpFormErrors.includes('fullName') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
             </View>
 
             <View className='flex flex-col gap-[8px]'>
               <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Email <Text className='text-crimson-alert'>*</Text></Text>
 
-              <TextInput placeholder='Enter your Email' placeholderTextColor='#C0C0C0' value={signUpFormData.email} onChange={(e) => handleChange('email', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+              <TextInput placeholder='Enter your Email' placeholderTextColor='#C0C0C0' value={signUpFormData.email} onChange={(e) => handleChange('email', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${signUpFormErrors.includes('email') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
             </View>
 
             <View className='flex flex-col gap-[8px]'>
               <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Password <Text className='text-crimson-alert'>*</Text></Text>
 
-              <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300'>
+              <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300 ${signUpFormErrors.includes('password') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                 <TextInput placeholder='Enter your Password' placeholderTextColor='#C0C0C0' value={signUpFormData.password} onChange={(e) => handleChange('password', e)} secureTextEntry={!showPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
 
                 <TouchableOpacity activeOpacity={0.8} onPress={() => setShowPassword(!showPassword)}>
@@ -77,7 +115,7 @@ const SignUp = () => {
         </View>
 
         <View className='flex flex-col gap-[16px]'>
-          <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={() => setActiveSignUpIndex(1)}>
+          <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={handleCreateAccount}>
             <Text className='text-pure-canvas text-[14px] font-inter-medium'>Create Account</Text>
           </TouchableOpacity>
 
@@ -108,7 +146,7 @@ const SignUp = () => {
 
                 <View className='flex flex-row items-center gap-[8px]'>
                   {[0, 1, 2, 3, 4, 5].map((item) => (
-                    <View className={`h-[48px] w-[48px] border-[1.5px] border-solid rounded-[12px] flex justify-center items-center ${emailVerificationCode[item] ? 'border-aqua-mint' : 'border-lavender-haze'}`} key={item}>
+                    <View className={`h-[48px] w-[48px] border-[1.5px] border-solid rounded-[12px] flex justify-center items-center ${signUpFormErrors.includes(`emailVerificationCode${item}`) ? 'border-crimson-alert' : (emailVerificationCode[item] ? 'border-aqua-mint' : 'border-lavender-haze')}`} key={item}>
                       <Text className='text-midnight-carbon text-[16px] font-inter-medium'>{emailVerificationCode[item] || ''}</Text>
                     </View>
                   ))}
@@ -119,7 +157,7 @@ const SignUp = () => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={() => router.push('/(auth)/Login')}>
+              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-full bg-midnight-carbon rounded-[12px] flex justify-center items-center' onPress={handleEmailVerificationProceed}>
                 <Text className='text-pure-canvas text-[14px] font-inter-medium'>Proceed</Text>
               </TouchableOpacity>
             </View>

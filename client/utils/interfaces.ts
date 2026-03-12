@@ -34,7 +34,24 @@ export interface ProductCardProps {
 };
 
 export interface checkoutDropdownOptionsType {
-    countriesData: { label: string, value: string }[],
-    statesData: { label: string, value: string }[],
-    citiesData: { label: string, value: string }[],
+    countriesData: { label: string, value: string }[];
+    statesData: { label: string, value: string }[];
+    citiesData: { label: string, value: string }[];
+};
+
+export interface SignUpFormDataType {
+    fullName: string;
+    email: string;
+    password: string;
+};
+
+export interface LoginFormDataType {
+    email: string;
+    password: string;
+};
+
+export interface ForgotPasswordDataType {
+    email: string;
+    password: string;
+    confirmPassword: string;
 };

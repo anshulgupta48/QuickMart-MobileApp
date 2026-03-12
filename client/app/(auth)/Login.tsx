@@ -5,18 +5,32 @@ import SvgImage from '@/components/SVGImage';
 import { Link, useRouter } from 'expo-router';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
+import { LoginFormDataType } from '@/utils/interfaces';
 
 const Login = () => {
-  const [loginFormData, setLoginFormData] = useState({ email: '', password: '' });
+  const [loginFormData, setLoginFormData] = useState<LoginFormDataType>({ email: '', password: '' });
+  const [loginFormErrors, setLoginFormErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setLoginFormErrors([]);
     setLoginFormData({ ...loginFormData, [fieldName]: e.nativeEvent.text });
   };
 
   const handleLogin = () => {
-    router.push('/(tabs)/Home');
+    let updatedLoginFormErrors = [];
+    if (loginFormData.email === '') {
+      updatedLoginFormErrors.push('email');
+    }
+    if (loginFormData.password === '') {
+      updatedLoginFormErrors.push('password');
+    }
+
+    setLoginFormErrors(updatedLoginFormErrors);
+    if (updatedLoginFormErrors.length === 0) {
+      router.push('/(tabs)/Home');
+    }
   };
 
   return (
@@ -40,13 +54,13 @@ const Login = () => {
                 <View className='flex flex-col gap-[8px]'>
                   <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Email <Text className='text-crimson-alert'>*</Text></Text>
 
-                  <TextInput placeholder='Enter your Email' placeholderTextColor='#C0C0C0' value={loginFormData.email} onChange={(e) => handleChange('email', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                  <TextInput placeholder='Enter your Email' placeholderTextColor='#C0C0C0' value={loginFormData.email} onChange={(e) => handleChange('email', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${loginFormErrors.includes('email') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                 </View>
 
                 <View className='flex flex-col gap-[8px]'>
                   <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Password <Text className='text-crimson-alert'>*</Text></Text>
 
-                  <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300'>
+                  <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300 ${loginFormErrors.includes('password') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                     <TextInput placeholder='Enter your Password' placeholderTextColor='#C0C0C0' value={loginFormData.password} onChange={(e) => handleChange('password', e)} secureTextEntry={!showPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
 
                     <TouchableOpacity activeOpacity={0.8} onPress={() => setShowPassword(!showPassword)}>
