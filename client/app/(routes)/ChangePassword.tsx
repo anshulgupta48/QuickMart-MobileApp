@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SvgImage from '@/components/SVGImage';
 import { useRouter } from 'expo-router';
 import { Icons } from '@/utils/icons';
-import ToastComponent from '@/components/ToastComponent';
 import { Images } from '@/utils/images';
+import ToastComponent from '@/components/ToastComponent';
+import { ChangePasswordDataType } from '@/utils/interfaces';
 
 const ChangePassword = () => {
-  const [changePasswordFormData, setChangePasswordFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const [changePasswordFormData, setChangePasswordFormData] = useState<ChangePasswordDataType>({ oldPassword: '', password: '', confirmPassword: '' });
+  const [changePasswordFormErrors, setChangePasswordFormErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [activeChangePasswordIndex, setactiveChangePasswordIndex] = useState<number>(0);
@@ -24,14 +26,31 @@ const ChangePassword = () => {
   };
 
   const handleNext = () => {
-    if (activeChangePasswordIndex === 2) {
-      router.push('/(tabs)/Home');
-    } else {
-      setactiveChangePasswordIndex(activeChangePasswordIndex + 1);
+    let updatedChangePasswordFormErrors = [];
+    if (activeChangePasswordIndex === 0 && changePasswordFormData.oldPassword === '') {
+      updatedChangePasswordFormErrors.push('oldPassword');
+    }
+    else if (activeChangePasswordIndex === 1) {
+      if (changePasswordFormData.password === '' || (changePasswordFormData.password !== changePasswordFormData.confirmPassword)) {
+        updatedChangePasswordFormErrors.push('password');
+      }
+      if (changePasswordFormData.confirmPassword === '' || (changePasswordFormData.password !== changePasswordFormData.confirmPassword)) {
+        updatedChangePasswordFormErrors.push('confirmPassword');
+      }
+    }
+
+    setChangePasswordFormErrors(updatedChangePasswordFormErrors);
+    if (updatedChangePasswordFormErrors.length === 0) {
+      if (activeChangePasswordIndex === 2) {
+        router.push('/(tabs)/Home');
+      } else {
+        setactiveChangePasswordIndex(activeChangePasswordIndex + 1);
+      }
     }
   };
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setChangePasswordFormErrors([]);
     setChangePasswordFormData({ ...changePasswordFormData, [fieldName]: e.nativeEvent.text });
   };
 
@@ -64,8 +83,8 @@ const ChangePassword = () => {
                 <View className='flex flex-col gap-[8px]'>
                   <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Password <Text className='text-crimson-alert'>*</Text></Text>
 
-                  <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300'>
-                    <TextInput placeholder='Enter your Password' placeholderTextColor='#C0C0C0' value={changePasswordFormData.password} onChange={(e) => handleChange('password', e)} secureTextEntry={!showPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
+                  <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300 ${changePasswordFormErrors.includes('oldPassword') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
+                    <TextInput placeholder='Enter your Old-Password' placeholderTextColor='#C0C0C0' value={changePasswordFormData.oldPassword} onChange={(e) => handleChange('oldPassword', e)} secureTextEntry={!showPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
 
                     <TouchableOpacity activeOpacity={0.8} onPress={() => setShowPassword(!showPassword)}>
                       <SvgImage source={showPassword ? Icons.EyeSlashIcon : Icons.EyeIcon} height={24} width={24} />
@@ -83,7 +102,7 @@ const ChangePassword = () => {
                 <View className='flex flex-col gap-[8px]'>
                   <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Password <Text className='text-crimson-alert'>*</Text></Text>
 
-                  <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300'>
+                  <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300 ${changePasswordFormErrors.includes('password') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                     <TextInput placeholder='Enter your Password' placeholderTextColor='#C0C0C0' value={changePasswordFormData.password} onChange={(e) => handleChange('password', e)} secureTextEntry={!showPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
 
                     <TouchableOpacity activeOpacity={0.8} onPress={() => setShowPassword(!showPassword)}>
@@ -95,7 +114,7 @@ const ChangePassword = () => {
                 <View className='flex flex-col gap-[8px]'>
                   <Text className='text-midnight-carbon text-[14px] font-inter-regular'>Confirm Password <Text className='text-crimson-alert'>*</Text></Text>
 
-                  <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300'>
+                  <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[10px] transition-all duration-300 ${changePasswordFormErrors.includes('confirmPassword') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                     <TextInput placeholder='Enter your Confirm Password' placeholderTextColor='#C0C0C0' value={changePasswordFormData.confirmPassword} onChange={(e) => handleChange('confirmPassword', e)} secureTextEntry={!showConfirmPassword} className='h-full w-[90%] text-midnight-carbon text-[12px] font-inter-regular' />
 
                     <TouchableOpacity activeOpacity={0.8} onPress={() => setShowConfirmPassword(!showConfirmPassword)}>

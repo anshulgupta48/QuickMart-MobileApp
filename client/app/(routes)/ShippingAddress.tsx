@@ -6,11 +6,12 @@ import { Country, State, City } from 'country-state-city';
 import { useRouter } from 'expo-router';
 import SvgImage from '@/components/SVGImage';
 import { Icons } from '@/utils/icons';
-import { checkoutDropdownOptionsType } from '@/utils/interfaces';
 import ToastComponent from '@/components/ToastComponent';
+import { checkoutDropdownOptionsType, ShippingAddressFormDataType } from '@/utils/interfaces';
 
 const ShippingAddress = () => {
-  const [shippingAddressFormData, setShippingAddressFormData] = useState({ fullName: '', phoneCode: null, phoneNumber: '', state: '', city: '', streetAddress: '', postalCode: '' });
+  const [shippingAddressFormData, setShippingAddressFormData] = useState<ShippingAddressFormDataType>({ fullName: '', phoneCode: null, phoneNumber: '', state: '', city: '', streetAddress: '', postalCode: '' });
+  const [shippingAddressFormErrors, setShippingAddressFormErrors] = useState<string[]>([]);
   const [checkoutDropdownOptions, setcheckoutDropdownOptions] = useState<checkoutDropdownOptionsType>({ countriesData: [...new Set(Country.getAllCountries()?.map((c) => c.phonecode?.split(",")[0])?.filter((code) => code && !isNaN(Number(code)))?.map((code) => Number(code)))]?.sort((a, b) => a - b)?.map((code) => ({ label: `+${code}`, value: `+${code}` })), statesData: [], citiesData: [] });
   const [showShippingAddressNotification, setShowShippingAddressNotification] = useState<boolean>(false);
   const router = useRouter();
@@ -44,6 +45,7 @@ const ShippingAddress = () => {
   }, [shippingAddressFormData.state]);
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setShippingAddressFormErrors([]);
     setShippingAddressFormData({ ...shippingAddressFormData, [fieldName]: e.nativeEvent.text });
   };
 
@@ -56,7 +58,30 @@ const ShippingAddress = () => {
   };
 
   const handleSave = () => {
-    setShowShippingAddressNotification(true);
+    let updatedShippingAddressFormErrors = [];
+    if (shippingAddressFormData.fullName === '') {
+      updatedShippingAddressFormErrors.push('fullName');
+    }
+    if (shippingAddressFormData.phoneCode === null || shippingAddressFormData.phoneNumber === '') {
+      updatedShippingAddressFormErrors.push('phoneNumber');
+    }
+    if (shippingAddressFormData.state === '') {
+      updatedShippingAddressFormErrors.push('state');
+    }
+    if (shippingAddressFormData.city === '') {
+      updatedShippingAddressFormErrors.push('city');
+    }
+    if (shippingAddressFormData.streetAddress === '') {
+      updatedShippingAddressFormErrors.push('streetAddress');
+    }
+    if (shippingAddressFormData.postalCode === '') {
+      updatedShippingAddressFormErrors.push('postalCode');
+    }
+
+    setShippingAddressFormErrors(updatedShippingAddressFormErrors);
+    if (updatedShippingAddressFormErrors.length === 0) {
+      setShowShippingAddressNotification(true);
+    }
   };
 
   return (
@@ -80,13 +105,13 @@ const ShippingAddress = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Full Name <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.fullName} onChange={(e) => handleChange('fullName', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.fullName} onChange={(e) => handleChange('fullName', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${shippingAddressFormErrors.includes('fullName') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Phone Number <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${shippingAddressFormErrors.includes('phoneNumber') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-[50px] z-10'>
                         <Dropdown
                           data={checkoutDropdownOptions.countriesData}
@@ -126,7 +151,7 @@ const ShippingAddress = () => {
                       <TextInput placeholder='Enter your Phone-Number' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.phoneNumber} onChange={(e) => handleChange('phoneNumber', e)} className='h-[60px] w-full text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
                     </View>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${shippingAddressFormErrors.includes('state') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-full z-10'>
                         <Dropdown
                           disable={!shippingAddressFormData.phoneCode}
@@ -165,7 +190,7 @@ const ShippingAddress = () => {
                       </View>
                     </View>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${shippingAddressFormErrors.includes('city') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-full z-10'>
                         <Dropdown
                           disable={!shippingAddressFormData.state}
@@ -208,13 +233,13 @@ const ShippingAddress = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Street Address <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Street-Address' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.streetAddress} onChange={(e) => handleChange('streetAddress', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Street-Address' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.streetAddress} onChange={(e) => handleChange('streetAddress', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${shippingAddressFormErrors.includes('streetAddress') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Postal Code <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Postal-Code' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.postalCode} onChange={(e) => handleChange('postalCode', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Postal-Code' placeholderTextColor='#C0C0C0' value={shippingAddressFormData.postalCode} onChange={(e) => handleChange('postalCode', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${shippingAddressFormErrors.includes('postalCode') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
                 </View>
               </View>

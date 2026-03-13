@@ -7,11 +7,12 @@ import { useRouter } from 'expo-router';
 import SvgImage from '@/components/SVGImage';
 import { Icons } from '@/utils/icons';
 import { Images } from '@/utils/images';
-import { checkoutDropdownOptionsType } from '@/utils/interfaces';
 import OrderHistoryProductCard from '@/components/OrderHistoryProductCard';
+import { checkoutDropdownOptionsType, CheckoutFormDataType } from '@/utils/interfaces';
 
 const Checkout = () => {
-  const [checkoutFormData, setCheckoutFormData] = useState({ fullName: '', phoneCode: null, phoneNumber: '', state: '', city: '', streetAddress: '', postalCode: '', cardHolderName: '', cardNumber: '', expiration: '', cvv: '' });
+  const [checkoutFormData, setCheckoutFormData] = useState<CheckoutFormDataType>({ fullName: '', phoneCode: null, phoneNumber: '', state: '', city: '', streetAddress: '', postalCode: '', cardHolderName: '', cardNumber: '', expiration: '', cvv: '' });
+  const [checkoutFormErrors, setCheckoutFormErrors] = useState<string[]>([]);
   const [checkoutDropdownOptions, setcheckoutDropdownOptions] = useState<checkoutDropdownOptionsType>({ countriesData: [...new Set(Country.getAllCountries()?.map((c) => c.phonecode?.split(",")[0])?.filter((code) => code && !isNaN(Number(code)))?.map((code) => Number(code)))]?.sort((a, b) => a - b)?.map((code) => ({ label: `+${code}`, value: `+${code}` })), statesData: [], citiesData: [] });
   const [activeCheckoutIndex, setActiveCheckoutIndex] = useState<number>(0);
   const router = useRouter();
@@ -45,6 +46,7 @@ const Checkout = () => {
   }, [checkoutFormData.state]);
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setCheckoutFormErrors([]);
     setCheckoutFormData({ ...checkoutFormData, [fieldName]: e.nativeEvent.text });
   };
 
@@ -57,10 +59,50 @@ const Checkout = () => {
   };
 
   const handleNext = () => {
-    if (activeCheckoutIndex !== 3) {
-      setActiveCheckoutIndex(activeCheckoutIndex + 1);
-    } else {
-      router.push('/(tabs)/Home');
+    let updatedCheckoutFormErrors = [];
+
+    if (activeCheckoutIndex === 0) {
+      if (checkoutFormData.fullName === '') {
+        updatedCheckoutFormErrors.push('fullName');
+      }
+      if (checkoutFormData.phoneCode === null || checkoutFormData.phoneNumber === '') {
+        updatedCheckoutFormErrors.push('phoneNumber');
+      }
+      if (checkoutFormData.state === '') {
+        updatedCheckoutFormErrors.push('state');
+      }
+      if (checkoutFormData.city === '') {
+        updatedCheckoutFormErrors.push('city');
+      }
+      if (checkoutFormData.streetAddress === '') {
+        updatedCheckoutFormErrors.push('streetAddress');
+      }
+      if (checkoutFormData.postalCode === '') {
+        updatedCheckoutFormErrors.push('postalCode');
+      }
+    }
+    else if (activeCheckoutIndex === 1) {
+      if (checkoutFormData.cardHolderName === '') {
+        updatedCheckoutFormErrors.push('cardHolderName');
+      }
+      if (checkoutFormData.cardNumber === '') {
+        updatedCheckoutFormErrors.push('cardNumber');
+      }
+      if (checkoutFormData.expiration === '') {
+        updatedCheckoutFormErrors.push('expiration');
+      }
+      if (checkoutFormData.cvv === '') {
+        updatedCheckoutFormErrors.push('cvv');
+      }
+    }
+
+    setCheckoutFormErrors(updatedCheckoutFormErrors);
+    if (updatedCheckoutFormErrors.length === 0) {
+      if (activeCheckoutIndex !== 3) {
+        setActiveCheckoutIndex(activeCheckoutIndex + 1);
+      } else {
+        router.push('/(tabs)/Home');
+      }
     }
   };
 
@@ -104,13 +146,13 @@ const Checkout = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Full Name <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={checkoutFormData.fullName} onChange={(e) => handleChange('fullName', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Full-Name' placeholderTextColor='#C0C0C0' value={checkoutFormData.fullName} onChange={(e) => handleChange('fullName', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('fullName') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Phone Number <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${checkoutFormErrors.includes('phoneNumber') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-[50px] z-10'>
                         <Dropdown
                           data={checkoutDropdownOptions.countriesData}
@@ -150,7 +192,7 @@ const Checkout = () => {
                       <TextInput placeholder='Enter your Phone-Number' placeholderTextColor='#C0C0C0' value={checkoutFormData.phoneNumber} onChange={(e) => handleChange('phoneNumber', e)} className='h-[60px] w-full text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
                     </View>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${checkoutFormErrors.includes('state') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-full z-10'>
                         <Dropdown
                           disable={!checkoutFormData.phoneCode}
@@ -189,7 +231,7 @@ const Checkout = () => {
                       </View>
                     </View>
 
-                    <View className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] flex flex-row items-center gap-[8px]'>
+                    <View className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] flex flex-row items-center gap-[8px] ${checkoutFormErrors.includes('city') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`}>
                       <View className='w-full z-10'>
                         <Dropdown
                           disable={!checkoutFormData.state}
@@ -232,13 +274,13 @@ const Checkout = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Street Address <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Street-Address' placeholderTextColor='#C0C0C0' value={checkoutFormData.streetAddress} onChange={(e) => handleChange('streetAddress', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Street-Address' placeholderTextColor='#C0C0C0' value={checkoutFormData.streetAddress} onChange={(e) => handleChange('streetAddress', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('streetAddress') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Postal Code <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter your Postal-Code' placeholderTextColor='#C0C0C0' value={checkoutFormData.postalCode} onChange={(e) => handleChange('postalCode', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter your Postal-Code' placeholderTextColor='#C0C0C0' value={checkoutFormData.postalCode} onChange={(e) => handleChange('postalCode', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('postalCode') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
                 </View>
               </View>}
@@ -258,26 +300,26 @@ const Checkout = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Card Holder Name <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter Card-Holder Name' placeholderTextColor='#C0C0C0' value={checkoutFormData.cardHolderName} onChange={(e) => handleChange('cardHolderName', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter Card-Holder Name' placeholderTextColor='#C0C0C0' value={checkoutFormData.cardHolderName} onChange={(e) => handleChange('cardHolderName', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('cardHolderName') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Card Number <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={checkoutFormData.cardNumber} onChange={(e) => handleChange('cardNumber', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={checkoutFormData.cardNumber} onChange={(e) => handleChange('cardNumber', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('cardNumber') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-row items-center gap-[8px]'>
                     <View className='w-[50%] flex flex-col gap-[8px]'>
                       <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Expiration <Text className='text-crimson-alert'>*</Text></Text>
 
-                      <TextInput placeholder='MM/YY' placeholderTextColor='#C0C0C0' value={checkoutFormData.expiration} onChange={(e) => handleChange('expiration', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                      <TextInput placeholder='MM/YY' placeholderTextColor='#C0C0C0' value={checkoutFormData.expiration} onChange={(e) => handleChange('expiration', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('expiration') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                     </View>
 
                     <View className='w-[50%] flex flex-col gap-[8px]'>
                       <Text className='text-midnight-carbon text-[14px] font-inter-medium'>CVV <Text className='text-crimson-alert'>*</Text></Text>
 
-                      <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={checkoutFormData.cvv} onChange={(e) => handleChange('cvv', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                      <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={checkoutFormData.cvv} onChange={(e) => handleChange('cvv', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${checkoutFormErrors.includes('cvv') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                     </View>
                   </View>
                 </View>

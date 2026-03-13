@@ -8,15 +8,34 @@ import ToastComponent from '@/components/ToastComponent';
 
 const PaymentMethod = () => {
   const [paymentMethodFormData, setPaymentMethodFormData] = useState({ cardHolderName: '', cardNumber: '', expiration: '', cvv: '' });
+  const [paymentMethodFormErrors, setPaymentMethodFormErrors] = useState<string[]>([]);
   const [showPaymentMethodNotification, setShowPaymentMethodNotification] = useState<boolean>(false);
   const router = useRouter();
 
   const handleChange = (fieldName: string, e: TextInputChangeEvent) => {
+    setPaymentMethodFormErrors([]);
     setPaymentMethodFormData({ ...paymentMethodFormData, [fieldName]: e.nativeEvent.text });
   };
 
   const handleSave = () => {
-    setShowPaymentMethodNotification(true);
+    let updatedPaymentMethodFormErrors = [];
+    if (paymentMethodFormData.cardHolderName === '') {
+      updatedPaymentMethodFormErrors.push('cardHolderName');
+    }
+    if (paymentMethodFormData.cardNumber === '') {
+      updatedPaymentMethodFormErrors.push('cardNumber');
+    }
+    if (paymentMethodFormData.expiration === '') {
+      updatedPaymentMethodFormErrors.push('expiration');
+    }
+    if (paymentMethodFormData.cvv === '') {
+      updatedPaymentMethodFormErrors.push('cvv');
+    }
+
+    setPaymentMethodFormErrors(updatedPaymentMethodFormErrors);
+    if (updatedPaymentMethodFormErrors.length === 0) {
+      setShowPaymentMethodNotification(true);
+    }
   };
 
   return (
@@ -50,26 +69,26 @@ const PaymentMethod = () => {
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Card Holder Name <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='Enter Card-Holder Name' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cardHolderName} onChange={(e) => handleChange('cardHolderName', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='Enter Card-Holder Name' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cardHolderName} onChange={(e) => handleChange('cardHolderName', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${paymentMethodFormErrors.includes('cardHolderName') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-col gap-[8px]'>
                     <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Card Number <Text className='text-crimson-alert'>*</Text></Text>
 
-                    <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cardNumber} onChange={(e) => handleChange('cardNumber', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                    <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cardNumber} onChange={(e) => handleChange('cardNumber', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${paymentMethodFormErrors.includes('cardNumber') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                   </View>
 
                   <View className='flex flex-row items-center gap-[8px]'>
                     <View className='w-[50%] flex flex-col gap-[8px]'>
                       <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Expiration <Text className='text-crimson-alert'>*</Text></Text>
 
-                      <TextInput placeholder='MM/YY' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.expiration} onChange={(e) => handleChange('expiration', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                      <TextInput placeholder='MM/YY' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.expiration} onChange={(e) => handleChange('expiration', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${paymentMethodFormErrors.includes('expiration') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                     </View>
 
                     <View className='w-[50%] flex flex-col gap-[8px]'>
                       <Text className='text-midnight-carbon text-[14px] font-inter-medium'>CVV <Text className='text-crimson-alert'>*</Text></Text>
 
-                      <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cvv} onChange={(e) => handleChange('cvv', e)} className='h-[60px] w-full px-[16px] border-[1.5px] border-solid border-lavender-haze focus:border-aqua-mint rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300' />
+                      <TextInput placeholder='4111 1111 1111 1111' placeholderTextColor='#C0C0C0' value={paymentMethodFormData.cvv} onChange={(e) => handleChange('cvv', e)} className={`h-[60px] w-full px-[16px] border-[1.5px] border-solid rounded-[12px] text-midnight-carbon text-[12px] font-inter-regular transition-all duration-300 ${paymentMethodFormErrors.includes('cvv') ? 'border-crimson-alert' : 'border-lavender-haze focus:border-aqua-mint'}`} />
                     </View>
                   </View>
                 </View>

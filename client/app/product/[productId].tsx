@@ -15,6 +15,10 @@ const ProductDetails = () => {
   const [showAddToCartNotification, setShowAddToCartNotification] = useState<boolean>(false);
   const router = useRouter();
 
+  const handleBuyNow = () => {
+    router.push('/(tabs)/MyCart');
+  };
+
   const handleAddToCart = () => {
     setShowAddToCartNotification(true);
   };
@@ -121,7 +125,7 @@ const ProductDetails = () => {
             </View>
 
             <View className='flex flex-row items-center gap-[8px]'>
-              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] border-[1.5px] border-solid border-lavender-haze rounded-[12px] flex justify-center items-center'>
+              <TouchableOpacity activeOpacity={0.8} className='h-[60px] w-[50%] border-[1.5px] border-solid border-lavender-haze rounded-[12px] flex justify-center items-center' onPress={handleBuyNow}>
                 <Text className='text-midnight-carbon text-[14px] font-inter-medium'>Buy Now</Text>
               </TouchableOpacity>
 

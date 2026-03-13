@@ -55,3 +55,33 @@ export interface ForgotPasswordDataType {
     password: string;
     confirmPassword: string;
 };
+
+export interface ChangePasswordDataType {
+    oldPassword: string;
+    password: string;
+    confirmPassword: string;
+};
+
+export interface ShippingAddressFormDataType {
+    fullName: string;
+    phoneCode: string | null;
+    phoneNumber: string;
+    state: string;
+    city: string;
+    streetAddress: string;
+    postalCode: string;
+};
+
+export interface CheckoutFormDataType {
+    fullName: string;
+    phoneCode: string | null;
+    phoneNumber: string;
+    state: string;
+    city: string;
+    streetAddress: string;
+    postalCode: string;
+    cardHolderName: string;
+    cardNumber: string;
+    expiration: string;
+    cvv: string;
+};
